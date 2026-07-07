@@ -1,0 +1,43 @@
+{
+  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+  "description": "Shared Renovate config. Consume with: \"extends\": [\"github>jay-withers/template-renovate\"]",
+  "extends": [
+    "config:recommended",
+    ":dependencyDashboard",
+    ":semanticCommits",
+    ":gitSignOff",
+    ":rebaseStalePrs",
+    "github>jay-withers/template-renovate:automerge",
+    "github>jay-withers/template-renovate:schedule",
+    "github>jay-withers/template-renovate:docker",
+    "github>jay-withers/template-renovate:github-actions",
+    "github>jay-withers/template-renovate:terraform",
+    "github>jay-withers/template-renovate:npm"
+  ],
+  "labels": ["dependencies"],
+  "prHourlyLimit": 4,
+  "prConcurrentLimit": 20,
+  "commitMessagePrefix": "chore(deps):",
+  "packageRules": [
+    {
+      "description": "Add an ecosystem label so PRs can be triaged at a glance",
+      "matchManagers": ["dockerfile", "docker-compose"],
+      "addLabels": ["docker"]
+    },
+    {
+      "description": "Add an ecosystem label so PRs can be triaged at a glance",
+      "matchManagers": ["github-actions"],
+      "addLabels": ["github-actions"]
+    },
+    {
+      "description": "Add an ecosystem label so PRs can be triaged at a glance",
+      "matchManagers": ["terraform", "terraform-version", "terragrunt", "terragrunt-version"],
+      "addLabels": ["terraform"]
+    },
+    {
+      "description": "Add an ecosystem label so PRs can be triaged at a glance",
+      "matchManagers": ["npm"],
+      "addLabels": ["javascript"]
+    }
+  ]
+}
