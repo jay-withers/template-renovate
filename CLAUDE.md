@@ -62,7 +62,9 @@ Workflows are prefixed `ci-` (pull-request checks) or `cd-` (post-merge delivery
 
 ## GitHub repo settings
 
-`scripts/protect-branch.sh` (run via `make protect-branch`) sets the platform state that can't live in files: repo-level auto-merge (required for the automerge preset's `platformAutomerge`), delete-branch-on-merge, and a ruleset on the target branch requiring the given status checks plus 1 approving review, with the Renovate GitHub App and the repo Admin role exempted as bypass actors. It clears existing rulesets first, so re-runs replace rather than accumulate.
+`scripts/protect-branch.sh` (run via `make protect-branch`) sets the platform state that can't live in files: repo-level auto-merge (required for the automerge preset's `platformAutomerge`), delete-branch-on-merge, and a ruleset on the target branch requiring the given status checks plus approving reviews, with the Renovate GitHub App and the repo Admin role exempted as bypass actors. It clears existing rulesets first, so re-runs replace rather than accumulate.
+
+GitHub only honours ruleset bypass actors on **organisation-owned** repos — on a personal (user-owned) repo the Renovate app exemption is silently ignored, so a required-review rule blocks Renovate's auto-merge forever. The script detects this and defaults `APPROVALS_REQUIRED` to `0` for user-owned repos (`1` for orgs); override with `APPROVALS_REQUIRED=<n>` if you add other human collaborators and want review enforced (Renovate itself will then need an auto-approve app, e.g. `renovate-approve`, to ever merge). This is safe even for public repos: merging still requires write access, which forks/outside contributors don't have, so dropping the approval count doesn't grant any new capability.
 
 **This repo has two required checks**, so override the default `CHECKS` (which is just `pre-commit / Pre-commit`) to include `validate`:
 

@@ -111,7 +111,9 @@ Some settings can't be templated as files and need to be set once per repo via t
 make protect-branch CHECKS="$(printf 'pre-commit / Pre-commit\nvalidate')"
 ```
 
-This runs `scripts/protect-branch.sh` and is idempotent. It enables repository **auto-merge** (which the automerge preset's `platformAutomerge` depends on) and **delete branch on merge**, then replaces all rulesets with one on the target branch requiring the given status checks and 1 approving review, with the Renovate GitHub App and the repo **Admin** role exempted as bypass actors.
+This runs `scripts/protect-branch.sh` and is idempotent. It enables repository **auto-merge** (which the automerge preset's `platformAutomerge` depends on) and **delete branch on merge**, then replaces all rulesets with one on the target branch requiring the given status checks and approving reviews, with the Renovate GitHub App and the repo **Admin** role exempted as bypass actors.
+
+GitHub only honours those bypass actors on **organisation-owned** repos, so on a personal (user-owned) repo the script defaults required reviews to `0` instead of `1` — otherwise Renovate's own auto-merge would be blocked forever waiting for a review it can't give itself. Override with `APPROVALS_REQUIRED=<n>` if needed; see `scripts/protect-branch.sh` for the full reasoning.
 
 `CHECKS` is a **newline-separated** list of status-check contexts (newline, not space, because a context name can itself contain spaces like `pre-commit / Pre-commit`). This repo has two checks — `pre-commit / Pre-commit` and `validate` — so pass both. Confirm exact names with `gh pr checks`.
 
