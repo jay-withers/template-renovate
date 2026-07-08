@@ -22,12 +22,13 @@ That single line pulls in [`default.json`](default.json), which wires up all the
 | Preset | Extend as | What it does |
 | --- | --- | --- |
 | **default** | `github>jay-withers/template-renovate` | The recommended everything-included config. Extends all presets below plus `config:recommended`, dependency dashboard, semantic commits and sign-off, and enables the `pre-commit` manager. |
-| **automerge** | `github>jay-withers/template-renovate:automerge` | Auto-merges non-major dev dependencies, pins, digests and lockfile maintenance once CI passes. Majors always require review. |
+| **automerge** | `github>jay-withers/template-renovate:automerge` | Auto-merges every update — including majors — once CI passes. |
 | **schedule** | `github>jay-withers/template-renovate:schedule` | Batches updates for before 6am on Monday to reduce mid-week churn. |
 | **docker** | `github>jay-withers/template-renovate:docker` | Pins image digests and groups Docker updates. |
 | **github-actions** | `github>jay-withers/template-renovate:github-actions` | Pins Actions to commit SHAs and groups them. |
 | **terraform** | `github>jay-withers/template-renovate:terraform` | Groups Terraform/Terragrunt providers and modules. |
 | **npm** | `github>jay-withers/template-renovate:npm` | Groups npm dev vs production dependencies and `@types`. |
+| **pre-commit** | `github>jay-withers/template-renovate:pre-commit` | Enables the pre-commit manager and groups all hook updates into one PR (they share `.pre-commit-config.yaml`). |
 
 ### Picking individual presets
 
@@ -134,6 +135,7 @@ docker.json            # Docker / container preset
 github-actions.json    # GitHub Actions preset
 terraform.json         # Terraform / Terragrunt preset
 npm.json               # Node / npm preset
+pre-commit.json        # pre-commit hooks preset
 renovate.json          # this repo dogfoods its own config
 .editorconfig          # baseline editor settings
 .gitattributes         # git-level LF normalization

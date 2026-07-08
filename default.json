@@ -12,11 +12,9 @@
     "github>jay-withers/template-renovate:docker",
     "github>jay-withers/template-renovate:github-actions",
     "github>jay-withers/template-renovate:terraform",
-    "github>jay-withers/template-renovate:npm"
+    "github>jay-withers/template-renovate:npm",
+    "github>jay-withers/template-renovate:pre-commit"
   ],
-  "pre-commit": {
-    "enabled": true
-  },
   "labels": ["dependencies"],
   "prHourlyLimit": 4,
   "prConcurrentLimit": 20,
