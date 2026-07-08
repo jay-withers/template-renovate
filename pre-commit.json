@@ -1,0 +1,15 @@
+{
+  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+  "description": "pre-commit hooks: enable the manager and group every hook update into a single PR, since all hooks share one .pre-commit-config.yaml and separate PRs would conflict.",
+  "pre-commit": {
+    "enabled": true
+  },
+  "packageRules": [
+    {
+      "description": "Group all pre-commit hook updates into one PR (they all edit the same file)",
+      "matchManagers": ["pre-commit"],
+      "groupName": "pre-commit hooks",
+      "addLabels": ["pre-commit"]
+    }
+  ]
+}

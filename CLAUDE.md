@@ -10,13 +10,14 @@ A centralised [Renovate](https://docs.renovatebot.com/) configuration repo. Inst
 
 Each preset is a self-contained JSON file at the repo root, consumed via `github>jay-withers/template-renovate:<name>` (the bare repo reference loads `default.json`):
 
-- **default.json** — the recommended everything-included config. Extends `config:recommended`, the dependency dashboard, semantic commits, git sign-off, and all the presets below. Also enables the `pre-commit` manager so derived repos get frozen-hook updates for free.
-- **automerge.json** — auto-merges non-major dev deps, pins, digests and lockfile maintenance once CI is green (`platformAutomerge`); majors always require a human.
+- **default.json** — the recommended everything-included config. Extends `config:recommended`, the dependency dashboard, semantic commits, git sign-off, and all the presets below.
+- **automerge.json** — auto-merges every update once CI is green (`platformAutomerge`), including major updates.
 - **schedule.json** — batches updates for `before 6am on monday`.
 - **docker.json** — pins image digests, groups Docker updates.
 - **github-actions.json** — pins Actions to commit SHAs (`helpers:pinGitHubActionDigests`), groups them.
 - **terraform.json** — groups Terraform/Terragrunt providers and modules.
 - **npm.json** — groups npm dev vs production dependencies and `@types`.
+- **pre-commit.json** — enables the `pre-commit` manager and groups all hook updates into one PR (every hook shares `.pre-commit-config.yaml`, so separate PRs would conflict). Derived repos get frozen-hook updates for free.
 
 Consumers override the shared config by setting options locally after the `extends` — later config wins (scalars replace, `packageRules` concatenate with later rules taking precedence).
 
