@@ -1,0 +1,9 @@
+{
+  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+  "description": "Batch updates for the weekend / early Monday to reduce mid-week churn and CI load.",
+  "schedule": ["before 6am on monday"],
+  "lockFileMaintenance": {
+    "schedule": ["before 6am on monday"]
+  },
+  "updateNotScheduled": false
+}

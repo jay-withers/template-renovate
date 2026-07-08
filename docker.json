@@ -1,0 +1,23 @@
+{
+  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+  "description": "Docker / container image handling: pin digests and group updates.",
+  "packageRules": [
+    {
+      "description": "Pin digests for all Docker images for reproducible builds",
+      "matchDatasources": ["docker"],
+      "pinDigests": true
+    },
+    {
+      "description": "Group Docker digest-only updates into a single PR",
+      "matchDatasources": ["docker"],
+      "matchUpdateTypes": ["digest"],
+      "groupName": "docker digests"
+    },
+    {
+      "description": "Group non-major Docker image updates",
+      "matchManagers": ["dockerfile", "docker-compose"],
+      "matchUpdateTypes": ["minor", "patch"],
+      "groupName": "docker images (non-major)"
+    }
+  ]
+}

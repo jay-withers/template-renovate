@@ -1,0 +1,26 @@
+{
+  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+  "description": "Node / npm: group dev and production dependencies separately.",
+  "packageRules": [
+    {
+      "description": "Group non-major devDependencies",
+      "matchManagers": ["npm"],
+      "matchDepTypes": ["devDependencies"],
+      "matchUpdateTypes": ["minor", "patch"],
+      "groupName": "npm dev dependencies (non-major)"
+    },
+    {
+      "description": "Group non-major production dependencies",
+      "matchManagers": ["npm"],
+      "matchDepTypes": ["dependencies"],
+      "matchUpdateTypes": ["minor", "patch"],
+      "groupName": "npm production dependencies (non-major)"
+    },
+    {
+      "description": "Group @types packages together",
+      "matchManagers": ["npm"],
+      "matchPackageNames": ["@types/**"],
+      "groupName": "npm type definitions"
+    }
+  ]
+}

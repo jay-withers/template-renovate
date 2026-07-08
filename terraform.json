@@ -1,0 +1,18 @@
+{
+  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+  "description": "Terraform / Terragrunt: group providers and modules.",
+  "packageRules": [
+    {
+      "description": "Group non-major Terraform provider and module updates",
+      "matchManagers": ["terraform", "terraform-version", "terragrunt", "terragrunt-version"],
+      "matchUpdateTypes": ["minor", "patch"],
+      "groupName": "terraform (non-major)"
+    },
+    {
+      "description": "Keep major Terraform updates separate for careful review",
+      "matchManagers": ["terraform", "terragrunt"],
+      "matchUpdateTypes": ["major"],
+      "groupName": "terraform (major)"
+    }
+  ]
+}

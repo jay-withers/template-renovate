@@ -1,0 +1,34 @@
+name: ci-validate
+
+on:
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: lts/*
+
+      - name: Validate all preset files
+        env:
+          # Authenticate preset resolution to avoid GitHub API rate limits
+          GITHUB_COM_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          set -euo pipefail
+          # Renovate presets live at the repo root; nested JSON (e.g.
+          # .devcontainer/devcontainer.json) is not Renovate config.
+          mapfile -t files < <(git ls-files '*.json' | grep -v '/' || true)
+          echo "Validating:"
+          printf '%s\n' "${files[@]}"
+          npx --yes --package renovate -- renovate-config-validator --strict "${files[@]}"
