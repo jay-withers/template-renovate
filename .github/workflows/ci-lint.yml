@@ -1,0 +1,12 @@
+name: ci-lint
+
+on:
+  pull_request:
+    branches: [main]
+
+permissions:
+  contents: read
+
+jobs:
+  pre-commit:
+    uses: jay-withers/template-pipelines/.github/workflows/pre-commit.yml@e25188fdae8c92a874aed318b81d41c1632cb630 # v0.2.0

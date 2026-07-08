@@ -1,9 +1,8 @@
-name: Validate Renovate config
+name: ci-validate
 
 on:
-  push:
-    branches: [main]
   pull_request:
+    branches: [main]
   workflow_dispatch:
 
 permissions:
@@ -27,7 +26,9 @@ jobs:
           GITHUB_COM_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           set -euo pipefail
-          files=$(git ls-files '*.json' | grep -v -E '(^|/)(package(-lock)?\.json)$' || true)
+          # Renovate presets live at the repo root; nested JSON (e.g.
+          # .devcontainer/devcontainer.json) is not Renovate config.
+          files=$(git ls-files '*.json' | grep -v '/' || true)
           echo "Validating:"
           echo "$files"
           npx --yes --package renovate -- renovate-config-validator --strict $files

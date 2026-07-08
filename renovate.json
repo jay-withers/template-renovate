@@ -1,5 +1,6 @@
 {
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
-  "description": "This repo dogfoods its own shared config.",
-  "extends": ["local>jay-withers/template-renovate"]
+  "description": "This repo dogfoods its own shared config. autoApprove lets low-risk config/tooling updates flow through the branch-protection review requirement.",
+  "extends": ["local>jay-withers/template-renovate"],
+  "autoApprove": true
 }

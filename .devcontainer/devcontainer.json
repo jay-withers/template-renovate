@@ -1,0 +1,19 @@
+{
+  "name": "generic",
+  "image": "ghcr.io/jay-withers/dev-containers/base:latest",
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "anthropic.claude-code",
+        "redhat.vscode-yaml",
+        "github.vscode-github-actions",
+        "github.vscode-pull-request-github",
+        "eamodio.gitlens",
+        "mhutchie.git-graph",
+        "editorconfig.editorconfig"
+      ]
+    }
+  },
+  "remoteUser": "vscode",
+  "postCreateCommand": "make install"
+}
