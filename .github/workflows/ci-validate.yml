@@ -28,7 +28,7 @@ jobs:
           set -euo pipefail
           # Renovate presets live at the repo root; nested JSON (e.g.
           # .devcontainer/devcontainer.json) is not Renovate config.
-          files=$(git ls-files '*.json' | grep -v '/' || true)
+          mapfile -t files < <(git ls-files '*.json' | grep -v '/' || true)
           echo "Validating:"
-          echo "$files"
-          npx --yes --package renovate -- renovate-config-validator --strict $files
+          printf '%s\n' "${files[@]}"
+          npx --yes --package renovate -- renovate-config-validator --strict "${files[@]}"
