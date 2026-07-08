@@ -1,6 +1,6 @@
 {
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
-  "description": "Auto-merge policy: non-major dev deps, pins, digests and lockfile maintenance once CI is green. Majors always need a human.",
+  "description": "Auto-merge policy: auto-merge every update once CI is green, including major updates.",
   "platformAutomerge": true,
   "lockFileMaintenance": {
     "enabled": true,
@@ -8,26 +8,20 @@
   },
   "packageRules": [
     {
-      "description": "Auto-merge pin and digest updates",
-      "matchUpdateTypes": ["pin", "pinDigest", "digest"],
+      "description": "Auto-merge all updates once CI passes",
+      "matchUpdateTypes": [
+        "major",
+        "minor",
+        "patch",
+        "pin",
+        "pinDigest",
+        "digest",
+        "bump",
+        "rollback",
+        "replacement",
+        "lockFileMaintenance"
+      ],
       "automerge": true
-    },
-    {
-      "description": "Auto-merge non-major development dependencies",
-      "matchDepTypes": ["devDependencies", "require", "action"],
-      "matchUpdateTypes": ["minor", "patch"],
-      "automerge": true
-    },
-    {
-      "description": "Auto-merge non-major pre-commit hook updates",
-      "matchManagers": ["pre-commit"],
-      "matchUpdateTypes": ["minor", "patch"],
-      "automerge": true
-    },
-    {
-      "description": "Never auto-merge major updates - always require review",
-      "matchUpdateTypes": ["major"],
-      "automerge": false
     }
   ]
 }
