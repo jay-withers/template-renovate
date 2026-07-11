@@ -110,6 +110,12 @@
         "images/k8s/Dockerfile"
       ],
       "groupName": "dev container tools"
+    },
+    {
+      "description": "Leaf images build FROM a base image that the repo's own CD builds and publishes (injected via the BASE_IMAGE build arg), so its version is managed by CD, not Renovate. Disable it so Renovate doesn't pin a digest that would fight CD - and doesn't emit 'no docker auth found' when that ghcr base package is private. Scoped to ghcr.io/.../base so the public upstream base (e.g. mcr.microsoft.com/devcontainers/base) keeps updating.",
+      "matchDatasources": ["docker"],
+      "matchPackageNames": ["/^ghcr\\.io/.+/base$/"],
+      "enabled": false
     }
   ]
 }
