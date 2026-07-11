@@ -2,6 +2,7 @@
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
   "description": "Auto-merge policy: auto-merge every update once CI is green, including major updates.",
   "platformAutomerge": true,
+  "automergeStrategy": "squash",
   "lockFileMaintenance": {
     "enabled": true,
     "automerge": true

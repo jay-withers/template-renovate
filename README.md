@@ -21,7 +21,7 @@ That single line pulls in [`default.json`](default.json), which wires up all the
 
 | Preset | Extend as | What it does |
 | --- | --- | --- |
-| **default** | `github>jay-withers/template-renovate` | The recommended everything-included config. Extends all presets below plus `config:recommended`, dependency dashboard, semantic commits and sign-off, and enables the `pre-commit` manager. |
+| **default** | `github>jay-withers/template-renovate` | The recommended everything-included config. Extends every ecosystem preset below plus `config:recommended`, dependency dashboard, semantic commits and sign-off, and enables the `pre-commit` manager. (Does not include **dev-container**, which is opt-in.) |
 | **automerge** | `github>jay-withers/template-renovate:automerge` | Auto-merges every update — including majors — once CI passes. |
 | **schedule** | `github>jay-withers/template-renovate:schedule` | Batches updates for before 6am on Monday to reduce mid-week churn. |
 | **docker** | `github>jay-withers/template-renovate:docker` | Pins image digests and groups Docker updates. |
@@ -29,6 +29,7 @@ That single line pulls in [`default.json`](default.json), which wires up all the
 | **terraform** | `github>jay-withers/template-renovate:terraform` | Groups Terraform/Terragrunt providers and modules. |
 | **npm** | `github>jay-withers/template-renovate:npm` | Groups npm dev vs production dependencies and `@types`. |
 | **pre-commit** | `github>jay-withers/template-renovate:pre-commit` | Enables the pre-commit manager and groups all hook updates into one PR (they share `.pre-commit-config.yaml`). |
+| **dev-container** | `github>jay-withers/template-renovate:dev-container` | **Opt-in, not in default.** Custom managers that track binary versions pinned as `ARG *_URL` download links in dev-container image Dockerfiles (tflint, checkov, terraform-docs, pre-commit, gh, node, kubectl, helm, k9s), grouped into one "dev container tools" PR. |
 
 ### Picking individual presets
 
@@ -136,6 +137,7 @@ github-actions.json    # GitHub Actions preset
 terraform.json         # Terraform / Terragrunt preset
 npm.json               # Node / npm preset
 pre-commit.json        # pre-commit hooks preset
+dev-container.json     # dev-container image toolchain preset (opt-in)
 renovate.json          # this repo dogfoods its own config
 .editorconfig          # baseline editor settings
 .gitattributes         # git-level LF normalization

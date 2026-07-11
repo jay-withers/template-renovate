@@ -1,0 +1,115 @@
+{
+  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+  "description": "Dev-container image toolchain: track binary versions pinned as ARG *_URL download links in the image Dockerfiles, and group them into a single PR.",
+  "customManagers": [
+    {
+      "customType": "regex",
+      "datasourceTemplate": "github-releases",
+      "depNameTemplate": "terraform-linters/tflint",
+      "managerFilePatterns": ["/^images/terraform/Dockerfile$/"],
+      "matchStrings": [
+        "ARG TFLINT_URL=\"https://github\\.com/terraform-linters/tflint/releases/download/v(?<currentValue>[^/]+)/[^\"]+\""
+      ],
+      "packageNameTemplate": "terraform-linters/tflint",
+      "versioningTemplate": "semver"
+    },
+    {
+      "customType": "regex",
+      "datasourceTemplate": "github-releases",
+      "depNameTemplate": "bridgecrewio/checkov",
+      "managerFilePatterns": ["/^images/terraform/Dockerfile$/"],
+      "matchStrings": [
+        "ARG CHECKOV_URL=\"https://github\\.com/bridgecrewio/checkov/releases/download/(?<currentValue>[^/]+)/[^\"]+\""
+      ],
+      "packageNameTemplate": "bridgecrewio/checkov",
+      "versioningTemplate": "semver"
+    },
+    {
+      "customType": "regex",
+      "datasourceTemplate": "github-releases",
+      "depNameTemplate": "terraform-docs/terraform-docs",
+      "managerFilePatterns": ["/^images/terraform/Dockerfile$/"],
+      "matchStrings": [
+        "ARG TERRAFORM_DOCS_URL=\"https://github\\.com/terraform-docs/terraform-docs/releases/download/v(?<currentValue>[^/]+)/[^\"]+\""
+      ],
+      "packageNameTemplate": "terraform-docs/terraform-docs",
+      "versioningTemplate": "semver"
+    },
+    {
+      "customType": "regex",
+      "datasourceTemplate": "github-releases",
+      "depNameTemplate": "pre-commit/pre-commit",
+      "managerFilePatterns": ["/^images/base/Dockerfile$/"],
+      "matchStrings": [
+        "ARG PRE_COMMIT_URL=\"https://github\\.com/pre-commit/pre-commit/releases/download/v(?<currentValue>[^/]+)/[^\"]+\""
+      ],
+      "packageNameTemplate": "pre-commit/pre-commit",
+      "versioningTemplate": "semver"
+    },
+    {
+      "customType": "regex",
+      "datasourceTemplate": "github-releases",
+      "depNameTemplate": "cli/cli",
+      "managerFilePatterns": ["/^images/base/Dockerfile$/"],
+      "matchStrings": [
+        "ARG GH_URL=\"https://github\\.com/cli/cli/releases/download/v(?<currentValue>[^/]+)/[^\"]+\""
+      ],
+      "packageNameTemplate": "cli/cli",
+      "versioningTemplate": "semver"
+    },
+    {
+      "customType": "regex",
+      "datasourceTemplate": "node-version",
+      "depNameTemplate": "node",
+      "managerFilePatterns": ["/^images/base/Dockerfile$/"],
+      "matchStrings": [
+        "ARG NODE_URL=\"https://nodejs\\.org/dist/v(?<currentValue>[^/]+)/[^\"]+\""
+      ],
+      "versioningTemplate": "node"
+    },
+    {
+      "customType": "regex",
+      "datasourceTemplate": "github-releases",
+      "depNameTemplate": "kubernetes/kubernetes",
+      "managerFilePatterns": ["/^images/k8s/Dockerfile$/"],
+      "matchStrings": [
+        "ARG KUBECTL_URL=\"https://dl\\.k8s\\.io/release/v(?<currentValue>[^/]+)/[^\"]+\""
+      ],
+      "packageNameTemplate": "kubernetes/kubernetes",
+      "versioningTemplate": "semver"
+    },
+    {
+      "customType": "regex",
+      "datasourceTemplate": "github-releases",
+      "depNameTemplate": "helm/helm",
+      "managerFilePatterns": ["/^images/k8s/Dockerfile$/"],
+      "matchStrings": [
+        "ARG HELM_URL=\"https://get\\.helm\\.sh/helm-v(?<currentValue>[^-]+)-[^\"]+\""
+      ],
+      "packageNameTemplate": "helm/helm",
+      "versioningTemplate": "semver"
+    },
+    {
+      "customType": "regex",
+      "datasourceTemplate": "github-releases",
+      "depNameTemplate": "derailed/k9s",
+      "managerFilePatterns": ["/^images/k8s/Dockerfile$/"],
+      "matchStrings": [
+        "ARG K9S_URL=\"https://github\\.com/derailed/k9s/releases/download/v(?<currentValue>[^/]+)/[^\"]+\""
+      ],
+      "packageNameTemplate": "derailed/k9s",
+      "versioningTemplate": "semver"
+    }
+  ],
+  "packageRules": [
+    {
+      "description": "Group all dev-container tool updates into a single PR",
+      "matchFileNames": [
+        "images/base/Dockerfile",
+        "images/terraform/Dockerfile",
+        "images/k8s/Dockerfile"
+      ],
+      "groupName": "dev container tools"
+    }
+  ]
+}
