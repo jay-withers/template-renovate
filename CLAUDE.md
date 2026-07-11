@@ -10,14 +10,15 @@ A centralised [Renovate](https://docs.renovatebot.com/) configuration repo. Inst
 
 Each preset is a self-contained JSON file at the repo root, consumed via `github>jay-withers/template-renovate:<name>` (the bare repo reference loads `default.json`):
 
-- **default.json** — the recommended everything-included config. Extends `config:recommended`, the dependency dashboard, semantic commits, git sign-off, and all the presets below.
-- **automerge.json** — auto-merges every update once CI is green (`platformAutomerge`), including major updates.
+- **default.json** — the recommended everything-included config. Extends `config:recommended`, the dependency dashboard, semantic commits, git sign-off, and all the ecosystem presets below except the opt-in **dev-container.json**.
+- **automerge.json** — auto-merges every update once CI is green (`platformAutomerge`), including major updates; squash-merges (`automergeStrategy: squash`).
 - **schedule.json** — batches updates for `before 6am on monday`.
 - **docker.json** — pins image digests, groups Docker updates.
 - **github-actions.json** — pins Actions to commit SHAs (`helpers:pinGitHubActionDigests`), groups them.
 - **terraform.json** — groups Terraform/Terragrunt providers and modules.
 - **npm.json** — groups npm dev vs production dependencies and `@types`.
 - **pre-commit.json** — enables the `pre-commit` manager and groups all hook updates into one PR (every hook shares `.pre-commit-config.yaml`, so separate PRs would conflict). Derived repos get frozen-hook updates for free.
+- **dev-container.json** — **opt-in, not extended by `default.json`.** Custom `regex` managers that track binary versions pinned as `ARG *_URL="…download/v<currentValue>/…"` links in dev-container image Dockerfiles (`images/{base,terraform,k8s}/Dockerfile`), grouped into one `dev container tools` PR. Consumed by `jay-withers/dev-container`, which extends the bare template plus this preset. Kept out of `default.json` because its file paths and toolset are specific to that repo's layout, not general policy.
 
 Consumers override the shared config by setting options locally after the `extends` — later config wins (scalars replace, `packageRules` concatenate with later rules taking precedence).
 
