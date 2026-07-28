@@ -22,7 +22,7 @@
   "packageRules": [
     {
       "description": "Add an ecosystem label so PRs can be triaged at a glance",
-      "matchManagers": ["dockerfile", "docker-compose"],
+      "matchManagers": ["dockerfile", "docker-compose", "devcontainer"],
       "addLabels": ["docker"]
     },
     {
