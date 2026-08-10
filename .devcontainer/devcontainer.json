@@ -1,6 +1,6 @@
 {
   "name": "generic",
-  "image": "ghcr.io/jay-withers/dev-containers/base:latest@sha256:e4d35e8560731c32ade1cd6c291f5097b5740c5b022da5731286d05153fb518e",
+  "image": "ghcr.io/jay-withers/dev-containers/base:latest@sha256:6bce92dbb3235409f88ab46b3c17b69cf281d96454bfe2888492dcc2c514ca71",
   "customizations": {
     "vscode": {
       "extensions": [
